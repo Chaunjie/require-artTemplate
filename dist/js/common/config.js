@@ -1,0 +1,1 @@
+require.config({paths:{jquery:"js/common/jquery",service1:"js/services/service1"}}),define("common/config",function(){});
