@@ -94,13 +94,8 @@ gulp.task('template', function () {
 });
 
 gulp.task('serve', ['js', 'less', 'image', 'html'], function (done) {
-    /*sh.cd('./dist/template');
-     var command = 'browser-sync start --server --files "index.html"';
-     sh.exec(command, function(){
-     done();
-     })*/
-    var templatePath = '/Users/panchaoo/demo/require-artTemplate/dist/template',
-        distPath = '/Users/panchaoo/demo/require-artTemplate/dist';
+    var templatePath = __dirname+'/dist/template',
+        distPath = __dirname+'/dist';
     browserSync.init({
         server: {
             baseDir: [templatePath, distPath]
@@ -110,4 +105,13 @@ gulp.task('serve', ['js', 'less', 'image', 'html'], function (done) {
 
     gulp.watch(['www/js/**/*.js', 'www/less/**/*.less', 'www/images/*', 'www/template/*.html'], [['js-watch'], ['less-watch'], ['image-watch'], ['html-watch']]);
 
+});
+
+gulp.task('deploy-build-production', function(done){
+    var path = './build/*';
+    var serverPath = '/var/www/build';
+    var command = 'scp -r '+path+' root@120.25.157.223:'+serverPath;
+    sh.exec(command, function(){
+        done();
+    })
 });
